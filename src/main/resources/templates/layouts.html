@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http:/www.thymeleaf.org">
+<head th:fragment="Head">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>홈페이지</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+</head>
+<body>
+    <nav th:fragment="Navbar" class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">LOGO</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link active" href="/projects/new">Project</a>
+              <a class="nav-link" href="/employees/new">Employee</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    <div class="container">
+        <h3>프로젝트 진행상황</h3>    
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>프로젝트 이름</th>
+                    <th>현재 진행상태</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="project:${projectList}">
+                    <th th:text="${project.name}"></th>
+                    <th th:text="${project.stage}"></th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    
+    <div class="container">
+        <h3>직원 현황</h3>    
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>성</th>
+                    <th>이름</th>
+                    <th>이메일</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="employee:${employeeList}">
+                    <th th:text="${employee.firstName}"></th>
+                    <th th:text="${employee.lastName}"></th>
+                    <th th:text="${employee.email}"></th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
