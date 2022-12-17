@@ -1,21 +1,30 @@
 package com.myapp.pma.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 
 @Entity
 public class Project {
 	
-	@OneToMany(mappedBy = "project") //project table 매핑
+	//N:N 관계
+	@ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, 
+				fetch = FetchType.LAZY) //project table 매핑
+	@JoinTable(name = "project_employee", joinColumns = @JoinColumn(name = "project_id"), 
+				inverseJoinColumns = @JoinColumn(name = "employee_id"))
 	private List<Employee> employees;
 	
 	@Id //기본키 설정
-	@GeneratedValue(strategy = GenerationType.AUTO) //id 자동 생성
+	@GeneratedValue(strategy = GenerationType.IDENTITY) //id 자동 생성
 	private Long projectId; //DB project_id
 	
 	private String name;
@@ -77,6 +86,13 @@ public class Project {
 	public String toString() {
 		return "Project [projectId=" + projectId + ", name=" + name + ", stage=" + stage + ", description="
 				+ description + "]";
+	}
+
+	public void addEmployee(Employee emp) {
+		if(employees == null)
+			employees = new ArrayList<>();
+		
+		employees.add(emp);
 	}
 	
 	

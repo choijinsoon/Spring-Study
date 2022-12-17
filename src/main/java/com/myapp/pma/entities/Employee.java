@@ -1,5 +1,7 @@
 package com.myapp.pma.entities;
 
+import java.util.List;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -7,20 +9,21 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 
 @Entity
 public class Employee {
 	
-	//N:1 관계
-	//프로젝트 하나에 직원은 여러명
-	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
+	//N:N 관계
+	@ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
 				fetch = FetchType.LAZY)
-	@JoinColumn(name = "project_id")
-	private Project project;
+	@JoinTable(name = "project_employee", joinColumns = @JoinColumn(name = "employee_id"),
+				inverseJoinColumns = @JoinColumn(name = "project_id"))
+	private List<Project> projects;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long employeeId;
 	
 	private String firstName;
@@ -38,12 +41,12 @@ public class Employee {
 		this.email = email;
 	}
 
-	public Project getProject() {
-		return project;
+	public List<Project> getProjects() {
+		return projects;
 	}
 
-	public void setProject(Project project) {
-		this.project = project;
+	public void setProjects(List<Project> projects) {
+		this.projects = projects;
 	}
 
 	public Long getEmployeeId() {

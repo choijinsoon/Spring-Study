@@ -5,27 +5,33 @@
     <nav th:replace="~{layouts :: Navbar}"></nav>
     <div class="container">
         <h3>프로젝트 진행상황</h3>    
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>프로젝트 이름</th>
-                    <th>현재 진행상태</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="project:${projectList}">
-                    <th th:text="${project.name}"></th>
-                    <th th:text="${project.stage}"></th>
-                </tr>
-            </tbody>
-        </table>
+        <div class="row">
+            <div class="col-md-7">
+                <table class="table table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>프로젝트 이름</th>
+                            <th>현재 진행상태</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="project:${projectList}">
+                            <th th:text="${project.name}"></th>
+                            <th class="stage" th:text="${project.stage}"></th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-3 ms-5">
+                <canvas id="myChart"></canvas>
+            </div>
+        </div>
     </div>
-
-    
+    <br>
     <div class="container">
         <h3>직원 현황</h3>    
-        <table class="table">
-            <thead>
+        <table class="table table-hover">
+            <thead class="table-dark">
                 <tr>
                     <th>성</th>
                     <th>이름</th>
@@ -41,5 +47,8 @@
             </tbody>
         </table>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script th:src="@{/js/chart.js}"></script>
 </body>
 </html>

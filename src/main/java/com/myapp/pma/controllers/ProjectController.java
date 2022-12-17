@@ -36,14 +36,9 @@ public class ProjectController {
 	}
     
 	@PostMapping("/save")
-	public String createProject(Project project,@RequestParam("employees") List<Long> ids) {
+	public String createProject(Project project) {
 		projectRepository.save(project); //project 객체를 DB의 테이블에 저장
 		
-		List<Employee> selectEmployees = (List<Employee>) employeeRepository.findAllById(ids);
-		for (Employee emp : selectEmployees) {
-			emp.setProject(project); //직원에 프로젝트 입력
-			employeeRepository.save(emp); //DB에 저장
-		}
 		return "redirect:/projects/new"; //post-redirect-get 패턴(/new > /save > /new)
 	}
 }
