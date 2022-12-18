@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http:/www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{layouts :: Head}"></head>
 <body>
     <nav th:replace="~{layouts :: Navbar}"></nav>
@@ -28,25 +28,25 @@
         </div>
     </div>
     <br>
-    <div class="container">
-        <h3>직원 현황</h3>    
-        <table class="table table-hover">
-            <thead class="table-dark">
-                <tr>
-                    <th>성</th>
-                    <th>이름</th>
-                    <th>이메일</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="employee:${employeeList}">
-                    <th th:text="${employee.firstName}"></th>
-                    <th th:text="${employee.lastName}"></th>
-                    <th th:text="${employee.email}"></th>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+<div class="container">
+  <h3>직원 현황</h3>
+  <table class="table table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th>성</th>
+        <th>이름</th>
+        <th>이메일</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="emp : ${employeeList}">
+        <td th:text="${emp.firstName}"></td>
+        <td th:text="${emp.lastName}"></td>
+        <td th:text="${emp.email}"></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script th:src="@{/js/chart.js}"></script>

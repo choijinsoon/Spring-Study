@@ -14,31 +14,40 @@ import com.myapp.pma.dao.EmployeeRepository;
 import com.myapp.pma.dao.ProjectRepository;
 import com.myapp.pma.entities.Employee;
 import com.myapp.pma.entities.Project;
+import com.myapp.pma.services.EmployeeService;
+import com.myapp.pma.services.ProjectService;
 
 @Controller
 @RequestMapping("/projects")
 public class ProjectController {
 	
 	@Autowired
-	private ProjectRepository projectRepository;
+	private ProjectService projectService;
 	
 	@Autowired
-	private EmployeeRepository employeeRepository;
+	private EmployeeService	employeeService;
 
-	@GetMapping("/new")
+	@GetMapping("/")
 	public String displayProjectForm(Model model) {
+		List<Project> projecList = projectService.findAll();
+		model.addAttribute("projecList", projecList);
+		return "projects/projecList";
+	}
+	
+	@GetMapping("/new")
+	public String newProjectForm(Model model) {
 		Project p = new Project();
 		model.addAttribute("project", p);
 		
-		List<Employee> empList = (List<Employee>) employeeRepository.findAll();
+		List<Employee> empList = (List<Employee>) employeeService.findAll();
 		model.addAttribute("empList", empList);
 		return "projects/new-project";
 	}
     
 	@PostMapping("/save")
 	public String createProject(Project project) {
-		projectRepository.save(project); //project 객체를 DB의 테이블에 저장
+		projectService.save(project); //project 객체를 DB의 테이블에 저장
 		
-		return "redirect:/projects/new"; //post-redirect-get 패턴(/new > /save > /new)
+		return "redirect:/projects/"; 
 	}
 }
