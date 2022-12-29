@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.myapp.pma.dao.EmployeeProject;
 import com.myapp.pma.dao.EmployeeRepository;
 import com.myapp.pma.entities.Employee;
 
@@ -20,6 +21,10 @@ public class EmployeeService {
 
 	public void save(Employee employee) {
 		employeeRepository.save(employee);
+	}
+
+	public List<EmployeeProject> employeeProjects() {
+		return employeeRepository.employeeProjects();
 	}
 
 }

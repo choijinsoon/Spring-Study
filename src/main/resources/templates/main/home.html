@@ -39,10 +39,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr th:each="emp : ${employeeList}">
+      <tr th:each="emp : ${empProList}">
         <td th:text="${emp.firstName}"></td>
         <td th:text="${emp.lastName}"></td>
-        <td th:text="${emp.email}"></td>
+        <td th:text="${emp.count}"></td>
       </tr>
     </tbody>
   </table>

@@ -7,33 +7,36 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.myapp.pma.dao.EmployeeProject;
 import com.myapp.pma.dao.EmployeeRepository;
 import com.myapp.pma.dao.ProjectRepository;
 import com.myapp.pma.entities.Employee;
 import com.myapp.pma.entities.Project;
-import com.myapp.pma.services.EmployeeService;
-import com.myapp.pma.services.ProjectService;
 
 @Controller
 public class HomeController {
-	
+
 	@Autowired
-	ProjectService projectService;
-	
+	ProjectRepository projectService;
+
 	@Autowired
-	EmployeeService employeeService;
-	
+	EmployeeRepository employeeService;
+
 	@GetMapping("/")
 	public String displayHome(Model model) {
-		List<Project> projectList = (List<Project>) projectService.findAll();
-		List<Employee> employeeList = employeeService.findAll();
+		List<Project> projectList = projectService.findAll();
+		List<EmployeeProject> empProList = employeeService.employeeProjects();
+		System.out.println(projectList);
+		System.out.println("hehe");
+		System.out.println(empProList);
 		model.addAttribute("projectList", projectList);
-		model.addAttribute("employeeList", employeeList);
+		model.addAttribute("empProList", empProList);
 		
 		return "main/home";
 	}
+
 	@GetMapping("/list")
 	public String displayemployee(Employee employee) {
 		return "employees/employeeList";
-	}	
+	}
 }
