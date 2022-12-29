@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 // 시큐리티 설정을 위해서는 1) WebSecurityConfigurerAdapter를 상속받아야하며 2) 어노테이션 EnableWebSecurity가 필요  
 @EnableWebSecurity
@@ -39,8 +40,10 @@ public class SecurityConfiguration {
 			.requestMatchers("/employees").authenticated()
 			.requestMatchers("/projects").authenticated()
 			.requestMatchers("/").permitAll()
-			.and().formLogin()
+			.and().formLogin(form -> form.loginPage("/login").permitAll())
+			.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 			.and().exceptionHandling().accessDeniedPage("/");
+		http.csrf().disable();
 		
 		return http.build();
 	}

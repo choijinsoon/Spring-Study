@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.myapp.pma.entities.Employee;
 import com.myapp.pma.services.EmployeeService;
@@ -36,5 +37,12 @@ public class EmployeeController {
 	public String createEmployee(Employee employee) {
 		employeeService.save(employee);
 		return "redirect:/employees/new";
+	}
+
+	@GetMapping("/update")
+	public String displayEmployeeUpdateForm(@RequestParam("id") long id, Model model) {
+		Employee employee = employeeService.findByEmployessId(id);
+		model.addAttribute("employee", employee);
+		return "employess/new-employee";
 	}
 }

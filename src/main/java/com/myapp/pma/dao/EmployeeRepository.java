@@ -19,4 +19,6 @@ public interface EmployeeRepository extends CrudRepository<Employee, Long>{
 			+ "GROUP BY LAST_NAME ,FIRST_NAME, e.EMPLOYEE_ID "
 			+ "ORDER BY count DESC")
 	public List<EmployeeProject> employeeProjects();
+
+	Employee findByEmployeeId(long id);
 }

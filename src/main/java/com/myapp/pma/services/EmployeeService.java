@@ -27,4 +27,8 @@ public class EmployeeService {
 		return employeeRepository.employeeProjects();
 	}
 
+	public Employee findByEmployessId(long id) {
+		return employeeRepository.findByEmployeeId(id);
+	}
+
 }
