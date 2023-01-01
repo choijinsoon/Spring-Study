@@ -17,12 +17,14 @@
             </div>
             <div class="row my-2">
                 <textarea class="form-control" placeholder="프로젝트 설명" th:field="*{description}"></textarea>
+                <span style="color:red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">
             </div>
             <div class="row my-2">
                 <select name="" id="" class="form-select" th:field="*{employees}" multiple>
                     <option value="" th:each="employee : ${empList}" th:value="${employee.employeeId}" th:text="${employee.firstName}"></option>
                 </select>
             </div>
+            <input type="hidden" th:field="*{projectId}">
             <button class="btn btn-primary" type="submit">프로젝트 추가</button>
         </form>
     </div>

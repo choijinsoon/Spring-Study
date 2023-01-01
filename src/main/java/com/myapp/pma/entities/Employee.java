@@ -2,6 +2,8 @@ package com.myapp.pma.entities;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -11,6 +13,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Employee {
@@ -20,14 +24,22 @@ public class Employee {
 				fetch = FetchType.LAZY)
 	@JoinTable(name = "project_employee", joinColumns = @JoinColumn(name = "employee_id"),
 				inverseJoinColumns = @JoinColumn(name = "project_id"))
+	@JsonIgnore
 	private List<Project> projects;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long employeeId;
 	
+	@NotBlank(message="이름을 입력해주세요")
+	@Size(min=1, max=20, message="이름은 1에서 20자 사이입니다.")
 	private String firstName;
+
+	@NotBlank(message = "성을 입력해주세요")
+	@Size(min=1, max=2, message = "성은 1에서 2자 사이입니다.")
 	private String lastName;
+
+	@NotBlank(message = "이메일을 입력해주세요")
 	private String email;
 	
 	public Employee() {

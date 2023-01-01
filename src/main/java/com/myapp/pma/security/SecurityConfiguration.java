@@ -35,17 +35,18 @@ public class SecurityConfiguration {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests()
-			.requestMatchers("/projects/**").hasAnyRole("ADMIN")
-			.requestMatchers("/employees/**").hasAnyRole("ADMIN")
-			.requestMatchers("/employees").authenticated()
-			.requestMatchers("/projects").authenticated()
-			.requestMatchers("/").permitAll()
+			// .requestMatchers("/projects/**").hasAnyRole("ADMIN")
+			// .requestMatchers("/employees/**").hasAnyRole("ADMIN")
+			// .requestMatchers("/employees").authenticated()
+			// .requestMatchers("/projects").authenticated()
+			.requestMatchers("/","/**").permitAll()
 			.and().formLogin(form -> form.loginPage("/login").permitAll())
-			.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-			.and().exceptionHandling().accessDeniedPage("/");
+			.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
+			// .and().exceptionHandling().accessDeniedPage("/");
 		http.csrf().disable();
 		
 		return http.build();
 	}
+
 }
 

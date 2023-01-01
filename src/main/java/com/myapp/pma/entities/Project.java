@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Project {
@@ -27,8 +28,11 @@ public class Project {
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //id 자동 생성
 	private Long projectId; //DB project_id
 	
+	@NotBlank(message="프로젝트 이름을 입력해주세요")
 	private String name;
 	private String stage;
+
+	@NotBlank(message="설명을 입력해주세요")
 	private String description;
 	
 	public Project() {

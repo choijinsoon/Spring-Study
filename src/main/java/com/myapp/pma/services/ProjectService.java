@@ -22,5 +22,16 @@ public class ProjectService {
 		projectRepository.save(project);
 	}
 
+	public void update(Project project) {
+		Project prj = projectRepository.findByProjectId(project.getProjectId());
 
+		prj.setName(project.getName());
+		prj.setDescription(project.getDescription());
+
+		projectRepository.save(prj);
+	}
+
+	public void deleteProjectById(long id) {
+		projectRepository.deleteById(id);
+	} 
 }

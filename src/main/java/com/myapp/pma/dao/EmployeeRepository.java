@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.myapp.pma.entities.Employee;
 
-public interface EmployeeRepository extends CrudRepository<Employee, Long>{
+public interface EmployeeRepository extends PagingAndSortingRepository<Employee, Long>{
 	@Override
 	List<Employee> findAll();
 

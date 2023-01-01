@@ -6,9 +6,16 @@
     <div class="container">
         <form action="@{/employees/save}" method="post" th:object="${employee}">
             <div class="row my-2">
-                <input type="text" class="form-control" placeholder="성" th:field="*{firstName}">
-                <input type="text" class="form-control" placeholder="이름" th:field="*{lastName}">
-                <input type="text" class="form-control" placeholder="이메일" th:field="*{email}">
+                <input class="form-control" th:field="*{lastName}" type="text" placeholder="성" />
+                <span style="color:red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">            
+            </div>
+            <div class="row my-2">
+                <input class="form-control" th:field="*{firstName}" type="text" placeholder="이름" />
+                <span style="color:red" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">  
+            </div>
+            <div class="row my-2">
+                <input type="email" class="form-control" th:field="*{email}" placeholder="이메일" />
+                <span style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">  
             </div>
             <button class="btn btn-primary" type="submit">직원 추가</button>
         </form>
